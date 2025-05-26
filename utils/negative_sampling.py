@@ -1,7 +1,10 @@
 import random
+from re import error
 import networkx as nx
 
 random.seed(42)
+
+#### Easy Negative Sampling ####
 
 
 # Random Negative Sampling
@@ -23,26 +26,63 @@ def random_negative_sampling(G, negative_samples_ratio=1):
     return negative_candidates
 
 
-# Common-Neighbors Negative Sampling
-# A simpler implementation that takes just the top k node pairs with most common neighbors without a link between them.
-def top_common_neighbors_negative_sampling(G, negative_samples_ratio=1):
-    positive_set = set(tuple(sorted(link)) for link in list(G.edges))
+#### Hard Negative Sampling ####
 
-    non_edges_with_scores = []
+
+# Top N (desc by number of neighbors) non-connected node pairs that have common neighbors and are at distance=2. Randomly Sampled.
+def common_neighbors_hard_negative_sampling(G, negative_samples_ratio=1):
+    if not G.edges:
+        raise Exception("Graph with no edges")
+
+    positive_set_size = len(list(G.edges()))
+    target_num_negatives = int(positive_set_size * negative_samples_ratio)
+
     nodes = list(G.nodes())
 
-    for i, u in enumerate(nodes):
-        for v_idx in range(i + 1, len(nodes)):
-            v = nodes[v_idx]
-            pair = tuple(sorted((u, v)))
+    if len(nodes) < 3:
+        raise Exception("Not enough nodes")
 
-            if not G.has_edge(u, v):
-                common_ns_count = len(list(nx.common_neighbors(G, u, v)))
-                non_edges_with_scores.append((pair, common_ns_count))
+    candidate_non_edges = {}
 
-    # Sort by common neighbors (descending) and take top-K
-    non_edges_with_scores.sort(key=lambda x: x[1], reverse=True)
-    negative_set_size = int(len(positive_set) * negative_samples_ratio)
+    # Heuristic to prevent too long runs
+    max_candidates_to_find = target_num_negatives * 5
+    max_attempts = max_candidates_to_find * 10
 
-    top_pairs = non_edges_with_scores[:negative_set_size]
-    return set(pair for pair, _ in top_pairs)
+    for _ in range(max_attempts):
+        if len(candidate_non_edges) >= max_candidates_to_find:
+            break
+
+        u = random.choice(nodes)
+        if G.degree(u) == 0:
+            continue
+
+        w = random.choice(list(G.neighbors(u)))
+        if G.degree(w) <= 1:
+            continue
+
+        potential_v_nodes = list(G.neighbors(w))
+        random.shuffle(potential_v_nodes)
+
+        for v in potential_v_nodes:
+            if v != u and not G.has_edge(u, v):
+                pair = tuple(sorted((u, v)))
+                if pair not in candidate_non_edges:
+                    cn_count = len(list(nx.common_neighbors(G, u, v)))
+                    if cn_count > 0:
+                        candidate_non_edges[pair] = cn_count
+                break
+
+    # Sort candidates by common neighbors (descending)
+    sorted_candidates = sorted(
+        candidate_non_edges.items(), key=lambda item: item[1], reverse=True
+    )
+
+    # Take the top N
+    hard_negatives = set(
+        pair for pair, count in sorted_candidates[:target_num_negatives]
+    )
+
+    if len(hard_negatives) < target_num_negatives / 2:
+        raise Exception("Not enough hard negatives found")
+
+    return hard_negatives
