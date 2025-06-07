@@ -42,3 +42,7 @@ Utility functions for common tasks are progressively refactored into a `utils` d
     *   **Focus:** Integrating node-level features with scaled Logistic Regression; optimizing via basic hyperparameter tuning.
 
 *(... more notebooks will be added here ...)*
+
+## Personal Observations
+1. I realized after the hyperparameters tuning done in the notebook `03` could have been done better in a later notebook. However, even if the work done is rough and the performance gains are not large, the learning process is indeed valuable and led to a better understanding of Cross-Validation and Random Forests.
+2. While being in notebook `04`, i noticed the existence of the `feature_importances_` attribute for Random Forests that would have been really useful in notebook `03`. In fact, after testing it i discovered that the features [aa, ra, pa] would have scored higher than [jc, ra, pa] that i used, because aa had more importance than jc.
