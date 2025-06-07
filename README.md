@@ -36,4 +36,9 @@ Utility functions for common tasks are progressively refactored into a `utils` d
     *   **Dataset:** Email Network (email-Eu-core)
     *   **Focus:** Advanced EDA; Hyperparameter tuning for Random Forest on a link prediction task, understanding the impact of different hyperparameters, and using techniques like Grid Search or Randomized Search with Cross-Validation.
 
+
+4.  **`04_facebook_social_circles_v2`**
+    *   **Dataset:** Facebook Social Circles (ego-Facebook)
+    *   **Focus:** Integrating node-level features with scaled Logistic Regression; optimizing via basic hyperparameter tuning.
+
 *(... more notebooks will be added here ...)*
