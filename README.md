@@ -34,6 +34,6 @@ Utility functions for common tasks are progressively refactored into a `utils` d
 
 3.  **`03_dense_email_network`**
     *   **Dataset:** Email Network (email-Eu-core)
-    *   **Focus:** Making a good EDA for topological features and comparing the performance of different binary classification models (e.g., Logistic Regression, SVM, Gradient Boosting) using a robust set of topological features and hard negative sampling.
+    *   **Focus:** Advanced EDA; Hyperparameter tuning for Random Forest on a link prediction task, understanding the impact of different hyperparameters, and using techniques like Grid Search or Randomized Search with Cross-Validation.
 
 *(... more notebooks will be added here ...)*
