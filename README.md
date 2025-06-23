@@ -41,6 +41,15 @@ Utility functions for common tasks are progressively refactored into a `utils` d
     *   **Dataset:** Facebook Social Circles (ego-Facebook)
     *   **Focus:** Integrating node-level features with scaled Logistic Regression; optimizing via basic hyperparameter tuning.
 
+5. **05_location_based_social_network**
+   * **Dataset:** Gowalla
+   * **Focus**: A comprehensive, real-world link prediction pipeline, introducing:
+     * Temporal Dynamics: Using a time-based split to predict future links based on past data.
+     * Large-Scale Data Handling: Applying efficient EDA and sampling techniques suitable for a larger graph.
+     * Node Embedding: Training Node2Vec to automatically learn feature representations from the graph structure.
+     * Advanced Feature Engineering: Combining topological features, engineered node attributes (from geographic check-in data), and learned embeddings.
+     * Model Comparison: Evaluating and comparing baseline models with more powerful ensemble models.
+
 *(... more notebooks will be added here ...)*
 
 ## Personal Observations
