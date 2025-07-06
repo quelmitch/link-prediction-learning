@@ -173,5 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .vscode/settings.json
-05_location_based_social_network/data/
-05_location_based_social_network/gowalla_heatmap.html
+05_Gowalla/data/
+05_Gowalla/gowalla_heatmap.html
+embedding/
+05_Gowalla/embeddings/

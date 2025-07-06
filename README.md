@@ -41,7 +41,7 @@ Utility functions for common tasks are progressively refactored into a `utils` d
     *   **Dataset:** Facebook Social Circles (ego-Facebook)
     *   **Focus:** Integrating node-level features with scaled Logistic Regression; optimizing via basic hyperparameter tuning.
 
-5. **05_location_based_social_network**
+5. **05_gowalla**
    * **Dataset:** Gowalla
    * **Focus**: A comprehensive, real-world link prediction pipeline, introducing:
      * Temporal Dynamics: Using a time-based split to predict future links based on past data.
