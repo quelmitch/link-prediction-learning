@@ -11,10 +11,8 @@ def main():
 
     # Paths definitions
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    edges_path = os.path.join(script_dir, "data", "Gowalla_edges.txt")
-    output_path = os.path.join(
-        script_dir, "embeddings", "gowalla_node2vec_embeddings.parquet"
-    )
+    edges_path = os.path.join(script_dir, "..", "data", "Gowalla_edges.txt")
+    output_path = os.path.join(script_dir, "gowalla_node2vec_embeddings.parquet")
 
     # Data loading
     G = nx.read_edgelist(edges_path, nodetype=int)
